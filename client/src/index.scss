@@ -1,0 +1,15 @@
+@import 'globals';
+
+@include react-md-everything;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.positionInBottom {
+  alignSelf: 'flex-end';
+  position: 'absolute';
+  bottom: 35;
+}

@@ -1,6 +1,5 @@
 /* SimpleFileUpload.jsx */
 import React, { PureComponent } from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {
   Button,
   FileUpload,
@@ -9,32 +8,19 @@ import {
   CardTitle,
   TextField,
   Divider,
-  Paper,
   DialogContainer,
   Card,
   CardText,
 } from 'react-md';
 import guid from 'uuid/v1';
-import { without } from 'lodash/array';
 import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
   withRouter
 } from "react-router-dom";
 
 import './_styles.scss';
-// import UploadProgress from './UploadProgress';
-// import UploadedFileCard from './UploadedFileCard';
-
-const LOADING_PROPS = {
-  'aria-busy': true,
-  'aria-describedby': 'file-upload-progress',
-};
 
 class ImageUpload extends PureComponent {
-  state = { file: null, image: '/static/google.png', story_name: '', story_text:'', visible: false};
+  state = { file: null, image: '/static/upload.jpg', story_name: '', story_text:'', visible: false};
   constructor(props) {
     super(props)
 
@@ -107,8 +93,8 @@ class ImageUpload extends PureComponent {
     }
     data.append('user_info', this.state.story_name);
     data.append('story_text', this.state.story_text);
-    console.log(this.state);
-    let imgurl = '';
+    // console.log(this.state);
+
     fetch('http://192.168.0.101:5000/upload', {
       method: 'POST',
       body: data,
@@ -141,8 +127,9 @@ class ImageUpload extends PureComponent {
         name="server-upload-form"
         className="file-inputs__upload-form"
       >
+      <Card key='1' className="cards__example md-cell md-cell--6 md-cell--8-tablet">
         <Media>
-          <img src={this.state.image} />
+          <img src={this.state.image} alt='' />
           <MediaOverlay>
             <FileUpload
               id="multiple-file-upload"
@@ -170,9 +157,6 @@ class ImageUpload extends PureComponent {
           />
           <Divider />
           <div className="papers__container">
-          <Paper
-              className="papers__example"
-            >
             <TextField
               id="story-body"
               placeholder="Story Text"
@@ -184,9 +168,9 @@ class ImageUpload extends PureComponent {
               onChange={this.updateText}
               errorText="Max 1000 characters."
             />
-          </Paper>
           </div>
         </section>
+        </Card>
         <Button raised primary type="submit">
            SUBMIT
          </Button>
@@ -200,7 +184,7 @@ class ImageUpload extends PureComponent {
         >
           <Card className="md-block-centered">
             <Media>
-              <img src={this.state.image} />
+              <img src={this.state.image} alt='' />
               <MediaOverlay>
                 <CardTitle title={this.state.story_name} />
               </MediaOverlay>
@@ -210,7 +194,7 @@ class ImageUpload extends PureComponent {
               <p>{this.state.story_text}</p>
             </CardText>
           </Card>
-          <Button raised primary>
+          <Button raised primary onClick={this.hide}>
              Close
            </Button>
         </DialogContainer>

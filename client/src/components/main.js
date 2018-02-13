@@ -2,19 +2,11 @@
 import React, { PureComponent } from 'react';
 import {
   Button,
-  DialogContainer,
-  Divider,
-  TextField,
   Toolbar,
-  Media,
-  FontIcon,
   SVGIcon
  } from 'react-md';
  import {
-   BrowserRouter as Router,
    Route,
-   Link,
-   Redirect,
    withRouter,
    Switch
  } from "react-router-dom";
@@ -41,7 +33,7 @@ class Main extends PureComponent {
   show = (e) => {
     const {idx} = this.state;
     // console.log(idx);
-    if(idx == 1){
+    if(idx === 1){
       this.setState({idx : 2, icon: <HomeIcon />});
       this.props.history.push('/story');
     }
@@ -51,7 +43,7 @@ class Main extends PureComponent {
     }
   };
   render() {
-    const {idx, icon} = this.state;
+    const icon = this.state.icon;
     return (
       <div>
         <Toolbar

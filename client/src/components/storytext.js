@@ -3,7 +3,6 @@ import {
   Button,
   DialogContainer,
   Divider,
-  TextField,
   Toolbar,
   Paper,
   Media,
@@ -15,17 +14,9 @@ export default class StoryText extends PureComponent {
   img = this.props.cardinfo.img_url;
   text = this.props.cardinfo.story_text;
 
-  state = { visible: false, pageX: null, pageY: null };
+  state = { visible: false };
   show = (e) => {
-    // provide a pageX/pageY to the dialog when making visible to make the
-    // dialog "appear" from that x/y coordinate
-    let { pageX, pageY } = e;
-    if (e.changedTouches) {
-      pageX = e.changedTouches[0].pageX;
-      pageY = e.changedTouches[0].pageY;
-    }
-
-    this.setState({ visible: true, pageX, pageY });
+    this.setState({ visible: true });
   };
 
   hide = () => {
@@ -33,7 +24,7 @@ export default class StoryText extends PureComponent {
   };
 
   render() {
-    const { visible, pageX, pageY } = this.state;
+    const { visible } = this.state;
 
     return (
       <div>
@@ -43,8 +34,6 @@ export default class StoryText extends PureComponent {
         <DialogContainer
           id="simple-full-page-dialog"
           visible={visible}
-          pageX={pageX}
-          pageY={pageY}
           fullPage
           onHide={this.hide}
           aria-labelledby="simple-full-page-dialog-title"
@@ -58,7 +47,7 @@ export default class StoryText extends PureComponent {
           />
           <section className="md-toolbar-relative">
             <Media>
-              <img src={this.img} />
+              <img src={this.img} alt='' />
             </Media>
             <Divider />
             <div className="papers__container">

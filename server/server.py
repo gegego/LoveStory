@@ -22,9 +22,9 @@ db = SQLAlchemy(app)
 class LoveStory(db.Model):
     __tablename__ = "lovestory"
     id = db.Column(db.Integer, primary_key=True)
-    user_info = db.Column(db.String(100), unique=True)
-    img_url = db.Column(db.String(200), unique=True)
-    story_text = db.Column(db.String(1000), unique=True)
+    user_info = db.Column(db.String(80))
+    img_url = db.Column(db.String(500))
+    story_text = db.Column(db.String(1000))
     satus = db.Column(db.Integer)
 
     def __init__(self, user_info, img_url, story_text):

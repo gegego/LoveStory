@@ -57,7 +57,7 @@ class StoryAPI(Resource):
 class StoryListAPI(Resource):
     def get(self):
         return [{'id': story.id,'user_info': story.user_info, \
-                'img_url': 'http://192.168.0.101:3000/static/story_image/'+story.img_url, 'story_text': story.story_text\
+                'img_url': story.img_url, 'story_text': story.story_text\
                 } for story in db.session.query(LoveStory).all()]
 
     def post(self):

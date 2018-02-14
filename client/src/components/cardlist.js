@@ -28,7 +28,7 @@ class StoryList extends PureComponent {
 
   componentWillMount() {
 
-    fetch('http://192.168.0.101:5000/storys', {
+    fetch('http://45.77.125.230/storys', {
       method: 'GET',
     }).then((response) => {
       response.json().then((body) => {

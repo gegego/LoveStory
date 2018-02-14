@@ -7,16 +7,16 @@ import werkzeug
 from flask_sqlalchemy import SQLAlchemy
 import uuid
 
-app = Flask(__name__)
-CORS(app)
-api = Api(app)
+application = Flask(__name__)
+CORS(application)
+api = Api(application)
 
 UPLOAD_FOLDER = '../client/public/static/story_image'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/LoveStory'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/LoveStory'
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(application)
 
 # Create our database model
 class LoveStory(db.Model):
@@ -111,4 +111,4 @@ api.add_resource(UploadImage, '/upload')
 api.add_resource(HelloWorld, '/')
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    application.run(debug=True, host="0.0.0.0", port=5000)

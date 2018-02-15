@@ -11,7 +11,7 @@ application = Flask(__name__)
 CORS(application)
 api = Api(application)
 
-UPLOAD_FOLDER = '../client/public/static/story_image'
+UPLOAD_FOLDER = '/root/LoveStory/client/build/static/story_image'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/LoveStory'
@@ -90,9 +90,6 @@ class UploadImage(Resource):
         if not 'user_info' in args or not 'story_text' in args:
             return {'message': 'Missing required parameters.'}, 400
 
-        # print(imgfile)
-        # if file and allowed_file(file.filename):
-            # From flask uploading tutorial
         filename = str(uuid.uuid4()) + secure_filename(imgfile.filename)
         imgfile.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 

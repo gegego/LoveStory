@@ -95,7 +95,7 @@ class ImageUpload extends PureComponent {
     data.append('story_text', this.state.story_text);
     // console.log(this.state);
 
-    fetch('http://45.77.125.230/upload', {
+    fetch('http://45.77.125.230:5000/upload', {
       method: 'POST',
       body: data,
     }).then((response) => {

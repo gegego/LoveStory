@@ -10,7 +10,7 @@ function CardlistX(props) {
   const cards = props.cards;
   const carditems = cards.map((card) =>
     <Card key={card.id} className="cards__example md-cell md-cell--6 md-cell--8-tablet">
-    <Media><img src={card.img_url} alt='' /></Media>
+    <Media><img src={'/static/story_image/'+card.img_url} alt='' /></Media>
     <CardText><p>{card.story_text}</p>
     <StoryText cardinfo={card}  />
     </CardText>

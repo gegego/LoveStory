@@ -47,7 +47,7 @@ export default class StoryText extends PureComponent {
           />
           <section className="md-toolbar-relative">
             <Media>
-              <img src={this.img} alt='' />
+              <img src={'/static/story_image/'+this.img} alt='' />
             </Media>
             <Divider />
             <div className="papers__container">

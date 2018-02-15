@@ -94,7 +94,7 @@ class UploadImage(Resource):
         # if file and allowed_file(file.filename):
             # From flask uploading tutorial
         filename = str(uuid.uuid4()) + secure_filename(imgfile.filename)
-        imgfile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        imgfile.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 
         new_story = LoveStory(user_info=args['user_info'], img_url=filename, \
                             story_text=args['story_text'])

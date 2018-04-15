@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import werkzeug
 from flask_sqlalchemy import SQLAlchemy
 import uuid
+from controller import Controller
 
 application = Flask(__name__)
 CORS(application)
@@ -101,7 +102,59 @@ class UploadImage(Resource):
         return {new_story.id: {'user_info': new_story.user_info, 'img_url': new_story.img_url,\
                 'story_text': new_story.story_text}}
 
+class TetrisRun(Resource):
+    def get(self):
+        con = Controller(20, 12)
+        con.initGame()
+        status = con.get_current_status()
+        block = con.block.lees
+        figure = {
+            'x': con.figure.x,
+            'y': con.figure.y,
+            'idx': con.figidx,
+            'cidx': con.figure.current_sprite_index,
+        }
+        # session["gamecon"] = con.get_current_status()
+        return {'status':status,\
+                'block':block,\
+                'figure':figure}
 
+    def post(self):
+        con = Controller(20, 12)
+        parse = reqparse.RequestParser()
+        parse.add_argument('step',  type=int)
+        parse.add_argument('block',  type=list, action='append')
+        parse.add_argument('figure', type=dict)
+        args = parse.parse_args()
+        # con = session["gamecon"]
+        blk = args.get('block')
+        fig = args.get('figure')
+        # les = args['board']
+        # print(blk,fig)
+        con.recoverGame(blk, fig)
+        if args['step']==0:
+            con.move_figure_left()
+        elif args['step']==1:
+            con.rotate_figure_clockwise()
+        elif args['step']==2:
+            con.move_figure_right()
+        elif args['step']==3:
+            con.move_figure_down()
+
+        status = con.get_current_status()
+        block = con.block.lees
+        figure = {
+            'x': con.figure.x,
+            'y': con.figure.y,
+            'idx': con.figidx,
+            'cidx': con.figure.current_sprite_index,
+        }
+        # print(figure)
+        return {'status':status,\
+                'block':block,\
+                'figure':figure}
+
+api.add_resource(TetrisRun, '/tetrisrun')
 api.add_resource(StoryAPI, '/storys/<int:id>')
 api.add_resource(StoryListAPI, '/storys')
 api.add_resource(UploadImage, '/upload')
